@@ -19,7 +19,7 @@ function CocktailList({ navigation, getCocktailsMethod }) {
   
         getCocktailsMethod().then(response => response.json())
         .then(json => {
-          console.log(json);
+          //console.log(json);
           if(json.length < 1) {
             setNoCocktailsFound(true);
           }

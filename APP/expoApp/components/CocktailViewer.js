@@ -1,7 +1,7 @@
 import React, { useState, useTransition, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, Animated } from 'react-native';
-
+import { getAuth } from "firebase/auth";
 import IngredientViewer from './IngredientViewer';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -42,6 +42,9 @@ const CocktailViewer = ({ navigation, cocktail }) => {
 const ExpandableIngredientView = ({ navigation, expanded = false, cocktail, Id }) => {
   const [height] = useState(new Animated.Value(0));
 
+  const [uid, setUid] = useState("");
+
+  
   const calcExpandibleSize = () => {
     var padding = 25;
     var ingredientSize = 19;
@@ -54,6 +57,7 @@ const ExpandableIngredientView = ({ navigation, expanded = false, cocktail, Id }
   }
 
   useEffect(() => {
+    setUid(getAuth().currentUser.uid);
     var size = calcExpandibleSize();
 
     Animated.timing(height, {
@@ -67,10 +71,11 @@ const ExpandableIngredientView = ({ navigation, expanded = false, cocktail, Id }
     <View style={styles.ingredientList}>
       <Animated.View style={{ height }}>
         <View style={styles.ingredientListInner}>
+          {cocktail.userUID == getAuth().currentUser.uid ?
           <Button
             title="Edit"
             onPress={() => navigation.navigate('CocktailEdit', { CocktailId: cocktail.id })}>
-          </Button>
+          </Button> : null}
 
           {cocktail.ingredients.map((ingredient) =>
             <IngredientViewer key={ingredient.id} ingredient={ingredient} />
