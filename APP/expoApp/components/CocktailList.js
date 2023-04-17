@@ -12,13 +12,17 @@ import CocktailViewer from '../components/CocktailViewer';
 
 function CocktailList({ navigation, getCocktailsMethod }) {
     const [cocktails, setCocktails] = useState([]);
+
+    const [noCocktailsFound, setNoCocktailsFound] = useState(false);
   
     const GetCocktailsFromServer = () => {
   
         getCocktailsMethod().then(response => response.json())
         .then(json => {
-          console.log("json");
-          console.log(json); //console.log(fakeFetch);
+          console.log(json);
+          if(json.length < 1) {
+            setNoCocktailsFound(true);
+          }
           setCocktails(json);
         })
         .catch(error => {
@@ -49,7 +53,8 @@ function CocktailList({ navigation, getCocktailsMethod }) {
   
     return (
       <View style={styles.page}>
-        {!cocktails || cocktails.length < 1 ? <ActivityIndicator size="large" style={{marginTop: "50%"}}/> :
+        {noCocktailsFound ? <Text>No Cocktails Found</Text> : 
+        !cocktails || cocktails.length < 1 ? <ActivityIndicator size="large" style={{marginTop: "50%"}}/> :
           <View style={styles.cocktailList}>
             {cocktails.map(cocktail =>
               <CocktailViewer key={cocktail.id} cocktail={cocktail} navigation={navigation} />
