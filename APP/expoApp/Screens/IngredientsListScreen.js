@@ -22,7 +22,7 @@ function IngredientListScreen({navigation})  {
 
         GetAllIngredients().then(res => res.json())
             .then(json => {
-                console.log(json);
+                //console.log(json);
                 
                 json.sort(function(a, b) {
                     var textA = a.name.toUpperCase();

@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     },
 
     cocktailList: {
-        backgroundColor: '#E0FBFC',
+        //backgroundColor: '#E0FBFC',
         width: "100%",
     },
 

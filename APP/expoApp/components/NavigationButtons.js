@@ -65,23 +65,6 @@ function NavigationButtons({ navigation }) {
             styles.accentBg,
             styles.buttonListItem,
           ]}
-          onPress={() => {
-            navigation.navigate('CocktailEdit', { CocktailId: null })
-          }}
-        >
-          <View style={styles.itemLeft}>
-            <Text style={[styles.titleText]}>Create New Cocktails</Text>
-          </View>
-          <AntDesign name="caretright" size={18} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[
-            styles.curvedButton,
-            styles.plainItemContainer,
-            styles.accentBg,
-            styles.buttonListItem,
-          ]}
           onPress={() => navigation.navigate('Ingredients')}
         >
           <View style={styles.itemLeft}>

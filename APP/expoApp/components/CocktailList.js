@@ -9,6 +9,7 @@ import styles from '../styles';
 import config from '../config.json';
 import { GetAllPublic, GetCocktailById } from '../utils/API/CocktailApiHelper';
 import CocktailViewer from '../components/CocktailViewer';
+import { FAB } from '@rneui/themed';
 
 function CocktailList({ navigation, getCocktailsMethod }) {
     const [cocktails, setCocktails] = useState([]);
@@ -52,7 +53,7 @@ function CocktailList({ navigation, getCocktailsMethod }) {
     }, [navigation]);
   
     return (
-      <View style={styles.page}>
+      <View style={[styles.pageContainer, styles.altBg]}>
         {noCocktailsFound ? <Text>No Cocktails Found</Text> : 
         !cocktails || cocktails.length < 1 ? <ActivityIndicator size="large" style={{marginTop: "50%"}}/> :
           <View style={styles.cocktailList}>
@@ -64,6 +65,15 @@ function CocktailList({ navigation, getCocktailsMethod }) {
   
   
         <StatusBar style="auto" />
+        <View style={[styles.fabFixedView]}>
+                <FAB
+                    title={"+"}
+                    onPress={() => {navigation.navigate('CocktailEdit', { CocktailId: null })} }
+                    style={[styles.FabButton]}
+                    color='#F2F2F2'
+                    titleStyle={{"color": "#000000"}}
+                />
+            </View>
       </View>
     );
   }
