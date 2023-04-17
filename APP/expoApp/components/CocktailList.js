@@ -49,7 +49,7 @@ function CocktailList({ navigation, getCocktailsMethod }) {
   
     return (
       <View style={styles.page}>
-        {!cocktails ? <ActivityIndicator size="large" /> :
+        {!cocktails || cocktails.length < 1 ? <ActivityIndicator size="large" style={{marginTop: "50%"}}/> :
           <View style={styles.cocktailList}>
             {cocktails.map(cocktail =>
               <CocktailViewer key={cocktail.id} cocktail={cocktail} navigation={navigation} />

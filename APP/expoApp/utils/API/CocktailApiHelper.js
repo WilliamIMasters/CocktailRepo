@@ -42,6 +42,16 @@ export function PostCocktail(apiCocktail) {
   });
 }
 
+export function PostIngredient(apiIngredient) {
+  return fetch(config.ServerUrl + '/api/Ingredient/', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + getAuth().currentUser.accessToken,
+    },
+    body: JSON.stringify(apiIngredient),
+  });
+}
 
 
 export function DeleteCocktailById(id) {

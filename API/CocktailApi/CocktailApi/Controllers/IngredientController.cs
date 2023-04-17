@@ -2,6 +2,7 @@
 using CocktailApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,6 +39,12 @@ namespace CocktailApi.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromBody] Ingredient ingredient)
         {
+
+            if (ingredient == null) return NotFound();
+            if (ingredient?.Id != null && ingredient.Id != 0) {
+                return BadRequest("IngredientAlreadyExists");
+            }
+
             _context.Ingredients.Add(ingredient);
             await _context.SaveChangesAsync();
 

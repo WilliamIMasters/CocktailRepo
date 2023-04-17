@@ -5,6 +5,7 @@ var primary = '#F2F2F2';
 var secondary = '#000000';
 var accent = '#ACE1AF';
 var alt = '#D0DCD1';
+var altAccent = '#69C96E';
 
 // https://coolors.co/ace1af-f5f5f5-000000-d16014
 
@@ -25,12 +26,18 @@ const styles = StyleSheet.create({
     curvedContainer: {
         padding: 18,
         borderRadius: 20,
-        flex: 1,
+        //flex: 1,
+        width: "100%"
     },
     curvedButton: {
         padding: 18,
         borderRadius: 40,
         flex: 1,
+    },
+    curvedButtonSmall: {
+        padding: 16,
+        borderRadius: 20,
+        marginBottom: 8,
     },
 
     
@@ -69,6 +76,11 @@ const styles = StyleSheet.create({
     accentText: {
         color: accent,
     },
+    blackBorder: {
+        borderStyle: 'solid', 
+        borderWidth: 1, 
+        borderColor: secondary
+    },
 
     // SpecificConps
     ppImage: {
@@ -77,10 +89,50 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         backgroundColor: primary,
     },
+    ppImageOption: {
+        height: 60,
+        width: 60,
+        borderRadius: 40,
+        backgroundColor: primary,
+    },
+    ppImageSelected: {
+        borderColor: primary,
+        borderRadius: 40,
+        borderWidth: 3,
+    },
     waveContainer: {
         height:40,
         overflow: "hidden",
         flexDirection: "row-reverse",
+    },
+    fabFixedView: {
+        position: 'absolute',
+        right: 5,
+        bottom: 5,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    FabButton: {
+        color: altAccent,
+        overlayColor: altAccent,
+        padding: 2,
+    },
+    searchBarContainer: {
+        display: "flex",
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    formInputContainer: {
+        padding: 18,
+        borderRadius: 32,
+        //flex: 1,
+        width: "100%"
+    },
+    textInput: {
+        height: 40,
+        borderWidth: 1,
+        padding: 10,
+        backgroundColor: primary,
     },
 
     // OLD

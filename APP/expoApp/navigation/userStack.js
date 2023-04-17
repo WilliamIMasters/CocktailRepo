@@ -1,36 +1,42 @@
 import React, { useState, useTransition, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { TextInput, StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Picker } from '@react-native-picker/picker';
-import styles from '../styles';
-import config from '../config.json';
-import { GetAllPublic, GetCocktailById } from '../utils/API/CocktailApiHelper';
-import CocktailViewer from '../components/CocktailViewer';
-import CocktailEdit from '../components/CocktailEdit'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import EditCocktailScreen from '../Screens/editCocktailScreen';
 
 import HomeScreen from '../Screens/homeScreen';
 import PublicCocktailList from '../Screens/publicCocktailsList';
 import MyCocktails from '../Screens/myCocktails';
 import AddIngredientScreen from '../Screens/AddIngredientScreen';
+import IngredientListScreen from '../Screens/IngredientsListScreen';
+import ProfileEditScreen from '../Screens/ProfileEditScreen';
+import HeaderOptionsButton from '../components/HeaderOptionsButton';
 
 
 const Stack = createNativeStackNavigator();
 
-
 export default function UserStack() {
+
+  const [homeShowOptions, setHomeShowOptions] = useState(false);
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" //component={HomeScreen}
+          options={{
+            headerRight: () => (<HeaderOptionsButton showOptions={homeShowOptions} setShowOptions={setHomeShowOptions} />),
+          }}
+        >
+          {(props) => <HomeScreen navigation={props.navigation} showOptions={homeShowOptions} setShowOptions={setHomeShowOptions}/>}
+        </Stack.Screen>
         <Stack.Screen name="PublicCocktails" component={PublicCocktailList} />
         <Stack.Screen name="MyCocktails" component={MyCocktails} />
         <Stack.Screen name="CocktailEdit" component={EditCocktailScreen} />
+        <Stack.Screen name="Ingredients" component={IngredientListScreen} />
         <Stack.Screen name="AddIngredient" component={AddIngredientScreen} />
+        <Stack.Screen name="ProfileEdit" component={ProfileEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
