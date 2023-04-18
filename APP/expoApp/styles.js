@@ -134,6 +134,10 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: primary,
     },
+    
+
+
+
 
     // OLD
 
@@ -151,8 +155,7 @@ const styles = StyleSheet.create({
 
         paddingVertical: 15,
         paddingHorizontal: 15,
-        marginHorizontal: 10,
-        marginTop: 15,
+        
 
         borderRadius: 40,
 

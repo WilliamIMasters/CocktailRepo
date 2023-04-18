@@ -9,6 +9,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http.Headers;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Query;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,15 +19,16 @@ namespace CocktailApi.Controllers
     [ApiController]
     public class CocktailsController : ControllerBase
     {
-
-
         private readonly DataContext _context;
+
+        private CocktailRepository _cocktails;
 
         private UserServices _userHelper;
 
         public CocktailsController(DataContext dataContext)
         {
             _context = dataContext;
+            _cocktails = new CocktailRepository(dataContext);
             _userHelper = new UserServices();
         }
 
@@ -43,31 +45,36 @@ namespace CocktailApi.Controllers
         [HttpGet]
         [Route("Public")]
         [Authorize]
-        public async Task<ActionResult<List<Cocktail>>> GetPublic()
+        public async Task<ActionResult<List<Cocktail>>> GetPublic([FromQuery] CocktailQuery? getParameters)
         {
-            return Ok(await _context.Cocktails.Where(x => x.IsPublic).ToListAsync());
+            getParameters.IsPublic = true;
+
+            var cocktails = _cocktails.GetFromQuery(getParameters);//FindCocktails(getParameters);
+
+            return Ok(await cocktails.ToListAsync());
+
         }
 
-        // GET: api/Cocktails/Public
+        // GET: api/Cocktails/User
         [HttpGet]
-        [Route("User/")]
+        [Route("User")]
         [Authorize]
-        public async Task<ActionResult<List<Cocktail>>> GetUser([FromHeader] string authorization)
+        public async Task<ActionResult<List<Cocktail>>> GetUser([FromHeader] string authorization, [FromQuery] CocktailQuery? getParameters)
         {
             var uid = await _userHelper.GetUidFromAuth(authorization);
-            return Ok(await _context.Cocktails.Where(x => x.UserUID == uid).ToListAsync());
+            getParameters.UID = uid;
+
+            var cocktails = _cocktails.GetFromQuery(getParameters);
+
+            return Ok( await cocktails.ToListAsync() );
         }
-
-
-
-
 
         // GET api/Cocktails/5
         [HttpGet("{id}")]
         [Authorize]
         public async Task<ActionResult<Cocktail>> Get(int id, [FromHeader] string authorization)
         {
-            var cocktail = await _context.Cocktails.FindAsync(id);
+            var cocktail = _cocktails.GetById(id);//await _context.Cocktails.FindAsync(id);
 
             if (cocktail == null) return NotFound();
             var uid = await _userHelper.GetUidFromAuth(authorization);
@@ -141,6 +148,39 @@ namespace CocktailApi.Controllers
             await _context.SaveChangesAsync();
             
             return Ok(dbCocktail.Id);
+
+        }
+
+        private IQueryable<Cocktail> FindCocktails(CocktailQuery? query)
+        {
+            IQueryable<Cocktail> cocktails = _context.Cocktails.AsQueryable();
+            //IQueryable<Cocktail> cocktailQuery = .Cocktails
+
+            if (query?.SearchParameter != null) {
+                cocktails = cocktails.Where(x => x.Name.Contains(query.SearchParameter));
+            }
+
+            if(query?.UID != null) {
+                cocktails = cocktails.Where(x => x.UserUID.Equals(query.UID));
+            }
+
+            if(query?.IsPublic != null) {
+                cocktails = cocktails.Where(x => x.IsPublic == query.IsPublic.Value);
+            }
+
+
+            if (query?.Sort != null) {
+                switch (query.Sort) {
+                    case SortType.Alphabetical:
+                        cocktails = cocktails.OrderBy(x => x.Name);
+                        break;
+
+                }
+            }
+
+
+            return cocktails;
+
 
         }
     }

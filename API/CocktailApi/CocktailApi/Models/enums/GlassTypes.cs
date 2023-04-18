@@ -12,6 +12,7 @@
         Margarita,
         Pint,
         Shot,
+        GinGoblet,
 
 
 

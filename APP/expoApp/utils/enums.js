@@ -11,4 +11,5 @@ exports.GlassTypes = [
     "Margarita",
     "Pint",
     "Shot",
+    "GinGoblet"
 ];

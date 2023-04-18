@@ -1,17 +1,18 @@
 import config from '../../config.json';
 import { getAuth } from "firebase/auth";
 
-export function GetAllPublic() {
-  return fetch(config.ServerUrl + '/api/Cocktails/public', {
+export function GetAllPublic(query = null) {
+  
+
+  return fetch(config.ServerUrl + '/api/Cocktails/public/', {
     headers: {
       "Authorization": "Bearer "  + getAuth().currentUser.accessToken,
     },
   });
 }
 
-export function GetUserCocktails() {
-  var uid = getAuth().currentUser.uid;
-  return fetch(config.ServerUrl + '/api/Cocktails/user/', {
+export function GetUserCocktails(query = "") {
+  return fetch(config.ServerUrl + '/api/Cocktails/user' + query, {
     headers: {
       "Authorization": "Bearer " + getAuth().currentUser.accessToken,
     },

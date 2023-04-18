@@ -15,7 +15,10 @@ const CocktailViewer = ({ navigation, cocktail }) => {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <View>
+    <View style={[{
+      backgroundColor: '#D7F1BB', borderRadius: 40, padding: 0, marginHorizontal: 10,
+      marginTop: 15,
+    }]}>
       <TouchableOpacity style={styles.itemContainer} onPress={() => {
         setIsExpanded(!isExpanded);
       }}>
@@ -44,7 +47,7 @@ const ExpandableIngredientView = ({ navigation, expanded = false, cocktail, Id }
 
   const [uid, setUid] = useState("");
 
-  
+
   const calcExpandibleSize = () => {
     var padding = 25;
     var ingredientSize = 19;
@@ -71,11 +74,11 @@ const ExpandableIngredientView = ({ navigation, expanded = false, cocktail, Id }
     <View style={styles.ingredientList}>
       <Animated.View style={{ height }}>
         <View style={styles.ingredientListInner}>
-          {cocktail.userUID == getAuth().currentUser.uid ?
-          <Button
-            title="Edit"
-            onPress={() => navigation.navigate('CocktailEdit', { CocktailId: cocktail.id })}>
-          </Button> : null}
+          {cocktail.userUID == getAuth().currentUser.uid &&
+            <Button
+              title="Edit"
+              onPress={() => navigation.navigate('CocktailEdit', { CocktailId: cocktail.id })}>
+            </Button>}
 
           {cocktail.ingredients.map((ingredient) =>
             <IngredientViewer key={ingredient.id} ingredient={ingredient} />
