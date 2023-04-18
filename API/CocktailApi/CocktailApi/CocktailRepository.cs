@@ -37,8 +37,13 @@ namespace CocktailApi
 
             if (query?.Sort != null) {
                 switch (query.Sort) {
+                    case SortType.None:
+                        break;
                     case SortType.Alphabetical:
                         cocktails = cocktails.OrderBy(x => x.Name);
+                        break;
+                    case SortType.AlphabeticalDecending:
+                        cocktails = cocktails.OrderByDescending(x => x.Name);
                         break;
 
                 }

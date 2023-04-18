@@ -74,26 +74,25 @@ function CocktailList({ navigation, getCocktailsMethod }) {
    return (
       <View style={{ flex: 1 }}>
          <View style={[styles.pageContainer, styles.altBg]}>
+            <View name={"SearchBar"} style={[styles.searchBarContainer, { marginHorizontal: 10, marginTop: 15 }]}>
+               <View style={[styles.itemLeft, { flexGrow: 1 }]}>
+                  <View style={[styles.curvedButtonSmall, styles.primaryBg, styles.blackBorder, { flexGrow: 1 }]}>
+                     <TextInput placeholder="Search..." value={searchTerm} onChangeText={setSearchTerm} onSubmitEditing={() => updateItemsShown()} />
+                  </View>
+               </View>
+
+               <TouchableOpacity onPress={updateSortSortType} style={[styles.curvedButtonSmall, styles.primaryBg, styles.blackBorder, { width: 45 }]}>
+                  <SortAlphaSymbol sortType={sortType} />
+               </TouchableOpacity>
+               <TouchableOpacity onPress={updateItemsShown} style={[styles.curvedButtonSmall, styles.primaryBg, styles.blackBorder, { width: 45 }]}>
+                  <FontAwesome name="search" size={14} color="black" />
+               </TouchableOpacity>
+            </View>
             <ScrollView>
                {!cocktails || cocktails.length < 1 ? (
                   <LoadingEmptyIndicator noCocktailsFound={noCocktailsFound} cocktails={cocktails} />
                ) : (
                   <View>
-                     <View name={"SearchBar"} style={[styles.searchBarContainer]}>
-                        <View style={[styles.itemLeft, { flexGrow: 1 }]}>
-                           <View style={[styles.curvedButtonSmall, styles.primaryBg, styles.blackBorder, { flexGrow: 1 }]}>
-                              <TextInput placeholder="Search..." value={searchTerm} onChangeText={setSearchTerm} onSubmitEditing={() => updateItemsShown()} />
-                           </View>
-                        </View>
-
-                        <TouchableOpacity onPress={updateSortSortType} style={[styles.curvedButtonSmall, styles.primaryBg, styles.blackBorder, { width: 45 }]}>
-                           <SortAlphaSymbol sortType={sortType}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={updateItemsShown} style={[styles.curvedButtonSmall, styles.primaryBg, styles.blackBorder, { width: 45 }]} >
-                           <FontAwesome name="search" size={14} color="black" />
-                        </TouchableOpacity>
-                     </View>
-
                      <View style={styles.cocktailList}>
                         {cocktails.map((cocktail) => (
                            <CocktailViewer key={cocktail.id} cocktail={cocktail} navigation={navigation} />
