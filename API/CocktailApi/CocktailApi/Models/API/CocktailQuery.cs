@@ -10,12 +10,13 @@
 
 
 
-        public SortType? Sort => SortType.Alphabetical;
+        public SortType? Sort { get; set; }
     }
 
 
     public enum SortType
     {
+        None,
         Alphabetical,
         AlphabeticalDecending,
     }

@@ -13,3 +13,9 @@ exports.GlassTypes = [
     "Shot",
     "GinGoblet"
 ];
+
+exports.SortTypes = [
+    "None",
+    "Alphabetical", 
+    "AlphabeticalDecending"
+];
