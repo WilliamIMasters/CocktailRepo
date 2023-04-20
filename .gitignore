@@ -5,3 +5,9 @@ APP/expoApp/config/firebase.js
 *.v2
 API/CocktailApi/.vs/CocktailApi/v17/.suo
 *.cache
+*.dll
+*.v2
+*.v2
+API/CocktailApi/.vs/CocktailApi/v17/.suo
+*.1
+*.1

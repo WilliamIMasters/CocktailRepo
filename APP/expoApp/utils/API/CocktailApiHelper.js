@@ -2,20 +2,15 @@ import config from '../../config.json';
 import { getAuth } from "firebase/auth";
 
 export function GetAllPublic(query = "") {
-   return baseFetch(config.ServerUrl + "/api/Cocktails/public" + query);
+  return baseFetch(config.ServerUrl + "/api/Cocktails/public" + query);
 }
 
 export function GetUserCocktails(query = "") {
   return baseFetch(config.ServerUrl + '/api/Cocktails/user' + query);
 }
 
-
 export function GetCocktailById(id) {
-  return fetch(config.ServerUrl + '/api/Cocktails/' + id, {
-    headers: {
-      "Authorization": "Bearer " + getAuth().currentUser.accessToken,
-    },
-  });
+  return baseFetch(config.ServerUrl + '/api/Cocktails/' + id);
 }
 
 export function PostCocktail(apiCocktail) {
@@ -27,7 +22,7 @@ export function PostCocktail(apiCocktail) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer "  + getAuth().currentUser.accessToken,
+      "Authorization": "Bearer " + getAuth().currentUser.accessToken,
     },
     body: JSON.stringify(apiCocktail),
   });
@@ -46,29 +41,30 @@ export function PostIngredient(apiIngredient) {
 
 
 export function DeleteCocktailById(id) {
-   return fetch(config.ServerUrl + "/api/Cocktails/" + id, {
-      method: "DELETE",
-      headers: {
-         "Content-Type": "application/json",
-         Authorization: "Bearer " + getAuth().currentUser.accessToken,
-      },
-   });
+  return fetch(config.ServerUrl + "/api/Cocktails/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getAuth().currentUser.accessToken,
+    },
+  });
 }
 
 export function GetAllIngredients() {
-   return fetch(config.ServerUrl + "/api/Ingredient");
+  return fetch(config.ServerUrl + "/api/Ingredient");
 }
 
-function baseFetch(url, extraParameters = {}) {
+function baseFetch(url, extraParameters = []) {
   return fetch(url, {
-     headers: {
-        Authorization: "Bearer " + getAuth().currentUser.accessToken,
-     },
-     extraParameters,
+    headers: {
+      Authorization: "Bearer " + getAuth().currentUser.accessToken,
+    },
+    extraParameters,
   }).then((res) => {
-    if(!res.ok) {
-      if(res.status == 401) {
+    if (!res.ok) {
+      if (res.status == 401) {
         //Refresh token
+        console.log("401 Error");
       }
     }
     return res;

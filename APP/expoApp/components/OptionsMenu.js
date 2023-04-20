@@ -27,32 +27,37 @@ function OptionsMenu({ showOptions, setShowOptions, navigation }) {
                 visible={showOptions}
                 onRequestClose={() => { console.log("Close"); }}
             >
-                <View style={{
+                <TouchableOpacity style={{
                     flex: 1,
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    height: '100%'
-                }}>
-                    <View style={[styles.curvedContainer, styles.altBg, { width: "60%", maxHeight: "50%" }]}>
+                    height: '100%',
+                    padding: 16,
+                }}
+                onPress={() => {setShowOptions(!showOptions); }}
+                >
+                    <View style={[styles.curvedContainer, styles.altBg, { maxWidth: "60%"}]}>
                         <Text style={[styles.titleText, { textAlign: "center", marginBottom: 8 }]}>Options</Text>
 
-                        <TouchableOpacity style={[styles.curvedButton, styles.primaryBg, { maxHeight: 55 }]}
-                            onPress={() => { auth.signOut(); }} >
-                            <Text style={[styles.subTitleText]}>Sign Out</Text>
-                        </TouchableOpacity>
+                        
 
-                        <TouchableOpacity style={[styles.curvedButton, styles.primaryBg, { maxHeight: 55 }]}
+                        <TouchableOpacity style={[styles.curvedButton, styles.primaryBg, { maxHeight: 55, margin: 8 }]}
                             onPress={() => { setShowOptions(!showOptions);navigation.navigate('ProfileEdit') }} >
                             <Text style={[styles.subTitleText]}>Edit Profile</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={[styles.curvedButton, styles.primaryBg, { maxHeight: 55 }]}
+                        <TouchableOpacity style={[styles.curvedButton, styles.primaryBg, { maxHeight: 55, margin: 8 }]}
+                            onPress={() => { auth.signOut(); }} >
+                            <Text style={[styles.subTitleText]}>Sign Out</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={[styles.curvedButton, styles.primaryBg, { maxHeight: 55, margin: 8 }]}
                             onPress={() => { setShowOptions(!showOptions) }} >
                             <Text style={[styles.subTitleText]}>Close</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
 
             </Modal>
         </View>

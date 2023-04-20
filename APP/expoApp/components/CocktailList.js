@@ -14,6 +14,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { SortTypes } from "../utils/enums";
 import GenerateQuery from "../utils/QueryGenerator";
+import CocktailDropDownButton from "../components/CocktailDropDownButton";
 
 function CocktailList({ navigation, getCocktailsMethod }) {
    const isFocused = useIsFocused();
@@ -95,7 +96,8 @@ function CocktailList({ navigation, getCocktailsMethod }) {
                   <View>
                      <View style={styles.cocktailList}>
                         {cocktails.map((cocktail) => (
-                           <CocktailViewer key={cocktail.id} cocktail={cocktail} navigation={navigation} />
+                           //<CocktailViewer key={cocktail.id} cocktail={cocktail} navigation={navigation} />
+                           <CocktailDropDownButton key={cocktail.id} cocktail={cocktail} navigation={navigation} />
                         ))}
                      </View>
                   </View>

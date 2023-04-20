@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
 
-    
+
     // EasyStyling
     titleText: {
         fontSize: 18,
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
         color: accent,
     },
     blackBorder: {
-        borderStyle: 'solid', 
-        borderWidth: 1, 
+        borderStyle: 'solid',
+        borderWidth: 1,
         borderColor: secondary
     },
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
     },
     waveContainer: {
-        height:40,
+        height: 40,
         overflow: "hidden",
         flexDirection: "row-reverse",
     },
@@ -134,13 +134,22 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: primary,
     },
-    
+    expandableButtonContainer: {
+        borderRadius: 40,
+        margin: 8
+    },
+    expandableButtonContentsContainer: {
+        borderRadius: 40,
+        padding: 32,
+        paddingTop: 16,
+    },
+
 
 
 
 
     // OLD
-
+    //#region
     page: {
         width: "100%",
     },
@@ -155,7 +164,7 @@ const styles = StyleSheet.create({
 
         paddingVertical: 15,
         paddingHorizontal: 15,
-        
+
 
         borderRadius: 40,
 
@@ -241,6 +250,8 @@ const styles = StyleSheet.create({
     w100: {
         width: "100%",
     },
+    //#endregion
+
 
 });
 
